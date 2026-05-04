@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rocket Loader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d0d;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      overflow: hidden;
+    }
+
+    .scene {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
+
+    /* ── ROCKET ── */
+    .rocket-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70px;
+    }
+
+    .rocket {
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      transform: translateY(0);
+    }
+    .rocket.launch {
+      transform: translateY(-600px);
+      opacity: 0;
+    }
+
+    .exhaust-wrap {
+      margin-top: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flame {
+      width: 4px;
+      background: linear-gradient(to bottom, #e68c3c, transparent);
+      border-radius: 2px;
+      animation: flamePulse 0.35s ease-in-out infinite alternate;
+    }
+    @keyframes flamePulse {
+      from { height: 18px; opacity: 1; }
+      to   { height: 32px; opacity: 0.5; }
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .step.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-green  { background: #4caf76; box-shadow: 0 0 6px #4caf7688; }
+    .dot-orange { background: #e68c3c; animation: dotGlow 0.5s ease-in-out infinite alternate; }
+    .dot-dim    { background: #333; }
+
+    @keyframes dotGlow {
+      from { box-shadow: 0 0 0 0 rgba(230,140,60,0.6); }
+      to   { box-shadow: 0 0 0 5px rgba(230,140,60,0); }
+    }
+
+    .label          { font-size: 13px; letter-spacing: 0.03em; }
+    .label-green    { color: #4caf76; }
+    .label-orange   { color: #e68c3c; }
+    .label-dim      { color: #444; }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+
+    <!-- Rocket -->
+    <div class="rocket-col">
+      <svg class="rocket" id="rocket" width="52" height="72" viewBox="0 0 52 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 4C26 4 10 22 10 42H42C42 22 26 4 26 4Z" fill="#2b2b2b" stroke="#3d3d3d" stroke-width="1"/>
+        <rect x="17" y="40" width="18" height="16" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+        <path d="M10 42L3 55L17 48" fill="#2b2b2b" stroke="#3d3d3d" stroke-width="1"/>
+        <path d="M42 42L49 55L35 48" fill="#2b2b2b" stroke="#3d3d3d" stroke-width="1"/>
+        <circle cx="26" cy="26" r="7" fill="#e68c3c" opacity="0.95"/>
+        <circle cx="26" cy="26" r="3.5" fill="#0d0d0d"/>
+      </svg>
+      <div class="exhaust-wrap" id="exhaust">
+        <div class="flame"></div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <ul class="steps">
+      <li class="step" id="s0">
+        <span class="dot dot-dim" id="d0"></span>
+        <span class="label label-dim" id="l0">Initializing workspace</span>
+      </li>
+      <li class="step" id="s1">
+        <span class="dot dot-dim" id="d1"></span>
+        <span class="label label-dim" id="l1">Mounting AI models</span>
+      </li>
+      <li class="step" id="s2">
+        <span class="dot dot-dim" id="d2"></span>
+        <span class="label label-dim" id="l2">Establishing workflows...</span>
+      </li>
+      <li class="step" id="s3">
+        <span class="dot dot-dim" id="d3"></span>
+        <span class="label label-dim" id="l3">Welcome to portfolio</span>
+      </li>
+    </ul>
+
+  </div>
+
+  <script>
+    // Timing for each step appearing (ms)
+    const timings = [300, 950, 1700, 2550];
+
+    function activateStep(i) {
+      document.getElementById('s' + i).classList.add('show');
+      document.getElementById('d' + i).className = 'dot dot-orange';
+      document.getElementById('l' + i).className = 'label label-orange';
+    }
+
+    function completeStep(i) {
+      document.getElementById('d' + i).className = 'dot dot-green';
+      document.getElementById('l' + i).className = 'label label-green';
+    }
+
+    // Reveal steps one by one
+    timings.forEach((t, i) => {
+      setTimeout(() => {
+        if (i > 0) completeStep(i - 1); // mark previous as done
+        activateStep(i);                 // activate current
+      }, t);
+    });
+
+    // Mark last step done
+    setTimeout(() => completeStep(3), timings[3] + 500);
+
+    // Launch rocket after all steps complete
+    setTimeout(() => {
+      document.getElementById('rocket').classList.add('launch');
+      document.getElementById('exhaust').style.display = 'none';
+    }, timings[3] + 900);
+  </script>
+
+</body>
+</html>
