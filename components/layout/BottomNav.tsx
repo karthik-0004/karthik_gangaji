@@ -10,6 +10,28 @@ export function BottomNav() {
 
   useEffect(() => {
     setMounted(true);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (['home', 'work', 'about'].includes(entry.target.id)) {
+              setActiveTab(entry.target.id);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -30% 0px',
+      }
+    );
+
+    const sections = ['home', 'work', 'about'].map(id => document.getElementById(id));
+    sections.forEach(section => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const tabs = [
