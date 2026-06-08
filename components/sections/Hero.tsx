@@ -125,7 +125,7 @@ export function Hero() {
             className="flex flex-col items-center gap-6"
           >
             <div className="w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-[#e68c3c] shadow-[0_0_30px_rgba(230,140,60,0.2)]">
-              <img src="/profile_pic.png" alt="Profile" className="w-full h-full object-cover" />
+              <img src="/new_profile_pic.jpeg" alt="Profile" className="w-full h-full object-cover" />
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white text-center tracking-tight mt-6 leading-tight">
               Welcome to my Portfolio
