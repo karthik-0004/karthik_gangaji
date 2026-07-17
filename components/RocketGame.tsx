@@ -409,7 +409,7 @@ export function RocketGame() {
             }
           }
         }}
-        className="fixed bottom-8 right-24 z-40 bg-black/60 hover:bg-black/80 backdrop-blur-xl border border-white/20 hover:border-red-500/50 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-colors group"
+        className="fixed top-6 right-24 md:top-auto md:bottom-8 md:right-24 z-40 bg-black/60 hover:bg-black/80 backdrop-blur-xl border border-white/20 hover:border-red-500/50 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-colors group"
         aria-label="Toggle Rocket Game"
       >
         <div className="relative w-full h-full flex items-center justify-center">
@@ -446,7 +446,7 @@ export function RocketGame() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 100, scale: 0.9 }}
               transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-              className="fixed bottom-24 right-4 sm:right-24 z-40 w-[92vw] sm:w-[400px] h-[550px] bg-black/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-3xl flex flex-col overflow-hidden"
+              className="fixed top-24 bottom-auto md:top-auto md:bottom-24 right-4 sm:right-24 z-40 w-[92vw] sm:w-[400px] h-[550px] bg-black/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-3xl flex flex-col overflow-hidden"
             >
               {/* Header */}
               <div className="px-5 py-4 border-b border-white/10 bg-white/5 flex items-center justify-between">

@@ -7,7 +7,7 @@ import { getKaiResponse, ChatMessage } from '@/lib/kaiEngine';
 import { useRocket } from '@/components/RocketContext';
 
 export function KAI() {
-  const { loadingState, isKaiOpen: isOpen, setIsKaiOpen: setIsOpen } = useRocket();
+  const { loadingState, isKaiOpen: isOpen, setIsKaiOpen: setIsOpen, setIsGameOpen } = useRocket();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -87,8 +87,13 @@ How can I help you today?`,
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 z-40 bg-black/60 hover:bg-black/80 backdrop-blur-xl border border-white/20 hover:border-red-500/50 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-colors group"
+        onClick={() => {
+          setIsOpen(!isOpen);
+          if (!isOpen) {
+            setIsGameOpen(false);
+          }
+        }}
+        className="fixed top-6 right-6 md:top-auto md:bottom-8 md:right-8 z-40 bg-black/60 hover:bg-black/80 backdrop-blur-xl border border-white/20 hover:border-red-500/50 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-colors group"
         aria-label="Toggle KAI Assistant"
       >
         <div className="relative w-full h-full flex items-center justify-center">
@@ -125,13 +130,22 @@ How can I help you today?`,
       {/* Chat Window Panel */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="fixed bottom-24 right-4 sm:right-8 z-40 w-[92vw] sm:w-[400px] h-[550px] bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-3xl flex flex-col overflow-hidden"
-          >
+          <>
+            {/* Backdrop click blocker */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-30 bg-black/10 backdrop-blur-[1px]"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 100, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 100, scale: 0.9 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="fixed top-24 bottom-auto md:top-auto md:bottom-24 right-4 sm:right-8 z-40 w-[92vw] sm:w-[400px] h-[550px] bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-3xl flex flex-col overflow-hidden"
+            >
             {/* Header */}
             <div className="px-5 py-4 border-b border-white/10 bg-white/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -226,6 +240,7 @@ How can I help you today?`,
               </button>
             </form>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
