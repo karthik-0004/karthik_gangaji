@@ -5,7 +5,7 @@ import { ScrollReveal } from '@/components/animations/ScrollReveal';
 
 export function Experience() {
   return (
-    <section className="bg-black px-4 md:px-8 lg:px-16 py-20 md:py-32 border-t border-white/5">
+    <section className="bg-transparent px-4 md:px-8 lg:px-16 py-20 md:py-32 border-t border-white/5">
       <ScrollReveal>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center justify-center mb-16 text-center">

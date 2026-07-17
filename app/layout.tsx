@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, Syne } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { CustomCursor } from '@/components/animations/CustomCursor'
 import './globals.css'
 
 const dmSans = DM_Sans({ 
@@ -34,7 +33,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${syne.variable} bg-black scroll-smooth`}>
       <body className="font-sans antialiased bg-black text-white cursor-none">
-        <CustomCursor />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

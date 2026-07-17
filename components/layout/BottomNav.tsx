@@ -2,11 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { useRocket } from '@/components/RocketContext';
 
 export function BottomNav() {
+  const { loadingState } = useRocket();
   const [activeTab, setActiveTab] = useState('home');
   const [mounted, setMounted] = useState(false);
+
+  const isVisible = 
+    loadingState === 'revealing' || 
+    loadingState === 'cursor_returning' || 
+    loadingState === 'ready';
 
   useEffect(() => {
     setMounted(true);
@@ -59,8 +65,8 @@ export function BottomNav() {
       {/* Fixed bottom navigation dock */}
       <motion.div
         initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
       >
         <div className="flex items-center gap-1 bg-black/60 backdrop-blur-xl border border-white/30 rounded-full px-6 py-3 md:px-8 md:py-4 shadow-2xl">
@@ -70,7 +76,7 @@ export function BottomNav() {
               <motion.button
                 key={tab.id}
                 onClick={() => handleTabClick(tab.id, tab.href)}
-                className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
+                className="relative px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors cursor-none"
                 whileTap={{ scale: 0.95 }}
               >
                 {tab.label}
@@ -89,27 +95,9 @@ export function BottomNav() {
               </motion.button>
             ))}
           </div>
-
-          {/* Spacer */}
-          <div className="w-px h-6 bg-white/20 mx-2 md:mx-4" />
-
-          {/* Avatar placeholder */}
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-[#00E8A2] to-[#00A876] flex items-center justify-center text-white font-bold text-sm md:text-base flex-shrink-0">
-            GK
-          </div>
         </div>
       </motion.div>
 
-      {/* Search icon - top right corner */}
-      <motion.button
-        initial={{ opacity: 0, rotate: -90 }}
-        animate={{ opacity: 1, rotate: 0 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="fixed top-6 md:top-8 right-6 md:right-8 z-40 p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-        aria-label="Search"
-      >
-        <Search className="w-5 h-5 md:w-6 md:h-6" />
-      </motion.button>
     </>
   );
 }

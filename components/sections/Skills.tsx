@@ -43,7 +43,7 @@ const skillsData = [
 
 export function Skills() {
   return (
-    <section className="bg-black min-h-screen px-4 md:px-8 lg:px-16 py-32 md:py-48">
+    <section className="bg-transparent min-h-screen px-4 md:px-8 lg:px-16 py-32 md:py-48">
       <ScrollReveal>
         <div className="max-w-7xl mx-auto">
           {/* Section Label */}

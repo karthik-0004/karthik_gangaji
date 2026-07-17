@@ -35,7 +35,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-black border-t border-white/10 px-4 md:px-8 lg:px-16 py-20 md:py-32">
+    <footer className="bg-transparent border-t border-white/10 px-4 md:px-8 lg:px-16 py-20 md:py-32">
       <ScrollReveal>
         <div className="max-w-7xl mx-auto">
           {/* Main footer grid */}
