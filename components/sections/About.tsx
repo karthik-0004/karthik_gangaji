@@ -96,7 +96,7 @@ export function About() {
                 <Code2 className="w-5 h-5" /> LeetCode
               </a>
               <a
-                href="/resume.pdf"
+                href="/fullstack_python.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-xl text-gray-400 hover:text-[#00E8A2] transition-colors border-b-2 border-transparent hover:border-[#00E8A2] pb-1"

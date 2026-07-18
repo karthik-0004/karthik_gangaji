@@ -2,7 +2,7 @@ export const KAI_DATA = {
   "personal": {
     "name": "Gangaji Karthikeyan",
     "title": "Full Stack Developer & AI Enthusiast",
-    "education_level": "B.Tech 3rd Year",
+    "education_level": "B.Tech 4th Year",
     "college": "CMR Technical Campus",
     "location": "Hyderabad, Telangana, India",
     "phone": "+91 98661 70506",
@@ -55,8 +55,7 @@ export const KAI_DATA = {
     "database": [
       "MySQL",
       "SQLite",
-      "SQL",
-      "NoSQL"
+      "SQL"
     ],
 
     "devops": [

@@ -70,8 +70,8 @@ export const portfolioInfo = {
   title: "Full-Stack Developer & AI/ML Engineer",
   location: "Hyderabad",
   school: "CMR Technical Campus",
-  year: "3rd Year CS",
-  cgpa: "9.25",
+  year: "4th Year CS",
+  cgpa: "9.12",
   email: "karthikgangaji@gmail.com",
   handle: "karthikgangaji",
   bio: [

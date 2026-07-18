@@ -2,6 +2,122 @@
 
 import { motion } from 'framer-motion';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { 
+  Database, 
+  Server, 
+  Brain, 
+  Network, 
+  Workflow, 
+  BookOpen, 
+  Search, 
+  Bot, 
+  Terminal, 
+  Compass, 
+  Key, 
+  Activity, 
+  FileSpreadsheet, 
+  Package, 
+  Cpu
+} from 'lucide-react';
+
+const brandIcons: Record<string, string> = {
+  "Python": "python",
+  "JavaScript": "javascript",
+  "React.js": "react",
+  "HTML5": "html5",
+  "Bootstrap": "bootstrap",
+  "Tailwind": "tailwindcss",
+  "Django": "django",
+  "Flask": "flask",
+  "Node.js": "nodedotjs",
+  "Streamlit": "streamlit",
+  "MySQL": "mysql",
+  "PostgreSQL": "postgresql",
+  "SQLite": "sqlite",
+  "Scikit-learn": "scikitlearn",
+  "NumPy": "numpy",
+  "Pandas": "pandas",
+  "SciPy": "scipy",
+  "GitHub": "github",
+  "Vercel": "vercel",
+  "FFmpeg": "ffmpeg",
+  "Google Maps API": "googlemaps"
+};
+
+const localLogos: Record<string, string> = {
+  "Java": "/logos/java.svg",
+  "CSS3": "/logos/css3.svg",
+  "AWS Cloud Practitioner": "/logos/aws.svg",
+  "EC2": "/logos/ec2.svg",
+  "S3": "/logos/s3.svg",
+  "OpenAI Embeddings": "/logos/openai.svg",
+  "Whisper": "/logos/openai.svg",
+  "Power BI": "/logos/powerbi.svg",
+  "Tableau": "/logos/tableau.svg",
+  "MS Excel": "/logos/excel.svg",
+  "Chromium": "/logos/chromium.svg",
+  "Matplotlib": "/logos/matplotlib.svg",
+  "Seaborn": "/logos/seaborn.svg"
+};
+
+const lucideIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  "SQL": Database,
+  "REST APIs": Server,
+  "Machine Learning": Brain,
+  "Deep Learning": Network,
+  "Supervised Learning": Workflow,
+  "Unsupervised Learning": Workflow,
+  "RAG": BookOpen,
+  "Semantic Search": Search,
+  "Local LLMs": Bot,
+  "Prompt Engineering": Terminal,
+  "Vector Search": Compass,
+  "IAM": Key,
+  "VPC": Network,
+  "CloudWatch": Activity,
+  "CSV": FileSpreadsheet,
+  "Pickle": Package,
+  "Joblib": Cpu
+};
+
+interface SkillIconProps {
+  name: string;
+}
+
+function SkillIcon({ name }: SkillIconProps) {
+  const localSrc = localLogos[name];
+  if (localSrc) {
+    return (
+      <img 
+        src={localSrc} 
+        alt={name} 
+        className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110"
+        loading="lazy"
+      />
+    );
+  }
+
+  const slug = brandIcons[name];
+  if (slug) {
+    const colorParam = slug === 'github' || slug === 'vercel' ? '/fff' : '';
+    const src = `https://cdn.simpleicons.org/${slug}${colorParam}`;
+    return (
+      <img 
+        src={src} 
+        alt={name} 
+        className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110"
+        loading="lazy"
+      />
+    );
+  }
+
+  const IconComponent = lucideIcons[name];
+  if (IconComponent) {
+    return <IconComponent className="w-5 h-5 text-gray-400 group-hover:text-[#00E8A2] transition-all duration-300 group-hover:scale-110" />;
+  }
+
+  return <Terminal className="w-5 h-5 text-gray-400 group-hover:text-[#00E8A2] transition-all duration-300 group-hover:scale-110" />;
+}
 
 const skillsData = [
   {
@@ -11,22 +127,40 @@ const skillsData = [
   },
   {
     category: "Frontend",
-    items: ["React.js", "AngularJS", "HTML5", "CSS3", "Bootstrap", "Tailwind"],
+    items: ["React.js", "HTML5", "CSS3", "Bootstrap", "Tailwind"],
     fullWidth: false
   },
   {
     category: "Backend",
-    items: ["Django", "Flask", "Node.js", "Streamlit", "REST APIs", "APScheduler"],
+    items: ["Django", "Flask", "Node.js", "Streamlit", "REST APIs"],
     fullWidth: false
   },
   {
     category: "Database",
-    items: ["MySQL", "PostgreSQL", "SQLite", "SQL", "NoSQL"],
+    items: ["MySQL", "PostgreSQL", "SQLite", "SQL"],
     fullWidth: false
   },
   {
     category: "AI / ML",
-    items: ["Machine Learning", "Deep Learning", "Feature Learning", "Supervised Learning", "Unsupervised Learning", "Model Fine-Tuning", "RAG", "OpenAI Embeddings", "Whisper", "Semantic Search", "Local LLMs", "Scikit-learn", "Agentic AI", "Prompt Engineering", "LLM Orchestration", "Vector Search", "NumPy", "Pandas", "Matplotlib", "Seaborn", "SciPy"],
+    items: [
+      "Machine Learning", 
+      "Deep Learning", 
+      "Supervised Learning", 
+      "Unsupervised Learning", 
+      "RAG", 
+      "OpenAI Embeddings", 
+      "Whisper", 
+      "Semantic Search", 
+      "Local LLMs", 
+      "Scikit-learn", 
+      "Prompt Engineering", 
+      "Vector Search", 
+      "NumPy", 
+      "Pandas", 
+      "Matplotlib", 
+      "Seaborn", 
+      "SciPy"
+    ],
     fullWidth: true
   },
   {
@@ -36,7 +170,7 @@ const skillsData = [
   },
   {
     category: "Tools",
-    items: ["GitHub", "Vercel", "Chromium", "FFmpeg", "Power BI", "Tableau", "MS Excel", "CSV", "Pickle", "Joblib", "Google Maps API", "Playwright"],
+    items: ["GitHub", "Vercel", "Chromium", "FFmpeg", "Power BI", "Tableau", "MS Excel", "CSV", "Pickle", "Joblib", "Google Maps API"],
     fullWidth: false
   }
 ];
@@ -74,9 +208,10 @@ export function Skills() {
                   {skillGroup.items.map((item) => (
                     <span 
                       key={item} 
-                      className="px-4 py-2 border border-white/20 rounded-full text-sm md:text-base text-gray-300"
+                      className="flex items-center gap-2.5 px-4 py-2 border border-white/10 hover:border-[#00E8A2]/50 bg-white/[0.02] hover:bg-white/[0.06] rounded-xl text-sm md:text-base text-gray-300 transition-all duration-300 ease-out hover:scale-[1.03] cursor-default"
                     >
-                      {item}
+                      <SkillIcon name={item} />
+                      <span>{item}</span>
                     </span>
                   ))}
                 </div>

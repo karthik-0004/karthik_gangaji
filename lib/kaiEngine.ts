@@ -368,7 +368,7 @@ Which project would you like to hear about?`,
 • Programming: Python, Java, SQL
 • Frontend: React.js, HTML5, CSS3
 • Backend: Django, FastAPI, Flask, Node.js
-• Databases: MySQL, SQLite, NoSQL
+• Databases: MySQL, SQLite
 • DevOps: Docker, Kubernetes, Git, GitHub Actions, Prometheus, Grafana
 • AI/ML: RAG, Semantic Search, Whisper, Local LLMs, Scikit-learn`,
         suggestions: ["Does he know Kubernetes?", "Does he know Python?", "What ML tools does he know?"]

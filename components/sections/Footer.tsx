@@ -21,7 +21,7 @@ const footerSections = {
     { label: 'LeetCode', href: portfolioInfo.links.leetcode, external: true },
   ] as FooterLink[],
   resources: [
-    { label: 'Resume', href: '/resume.pdf', external: true },
+    { label: 'Resume', href: '/fullstack_python.pdf', external: true },
     { label: 'Email', href: `mailto:${portfolioInfo.email}`, external: false },
   ] as FooterLink[],
 };
